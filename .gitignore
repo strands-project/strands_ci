@@ -1,0 +1,41 @@
+.bash_history
+.bashrc
+.cache/
+.owner
+.ros/
+Fingerprint cleanup.log
+Gravatar periodic lookup.log
+Workspace clean-up.log
+com.cloudbees.jenkins.GitHubPushTrigger.xml
+hudson.maven.MavenModuleSet.xml
+hudson.model.UpdateCenter.xml
+hudson.plugins.git.GitSCM.xml
+hudson.plugins.git.GitTool.xml
+hudson.plugins.jabber.im.transport.JabberPublisher.xml
+hudson.scm.CVSSCM.xml
+hudson.scm.SubversionSCM.xml
+hudson.tasks.Ant.xml
+hudson.tasks.Mailer.xml
+hudson.tasks.Maven.xml
+hudson.tasks.Shell.xml
+hudson.triggers.SCMTrigger.xml
+identity.key
+jenkins.model.JenkinsLocationConfiguration.xml
+jenkins.mvn.GlobalMavenConfig.xml
+jenkins.security.QueueItemAuthenticatorConfiguration.xml
+jenkins.security.RekeySecretAdminMonitor/
+jobs/catkin_make_strands_desktop_full/builds/
+jobs/catkin_make_strands_desktop_full/lastStable
+jobs/catkin_make_strands_desktop_full/lastSuccessful
+jobs/catkin_make_strands_desktop_full/nextBuildNumber
+jobs/catkin_make_strands_desktop_full/workspace/
+nodeMonitors.xml
+org.jenkinsci.plugins.ghprb.GhprbTrigger.xml
+plugins/
+queue.xml.bak
+secret.key
+secrets/
+updates/
+userContent/
+users/
+

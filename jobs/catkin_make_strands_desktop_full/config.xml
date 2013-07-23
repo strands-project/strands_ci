@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.7">
+      <projectUrl>https://github.com/strands-project/strands_ci/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H 2 * * *
+</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#################################################################
+# MIRA configuration
+export MIRA_PATH=/opt/MIRA
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/MIRA/lib
+export PATH=${PATH}:/opt/MIRA/bin
+
+rosdep update
+
+rm -rf catkin_ws
+source /opt/ros/groovy/setup.bash
+mkdir -p catkin_ws/src
+cd catkin_ws
+wstool init src 
+catkin_init_workspace src
+cd src
+wstool merge https://raw.github.com/strands-project/strands_systems/master/strands_rosinstall/strands-scitos-full.yaml
+wstool merge https://raw.github.com/strands-project/strands_systems/master/strands_rosinstall/strands-desktop-full.yaml
+wstool up
+cd ..
+catkin_make
+
+cd src
+wstool info --yaml &gt; ws-versions.yaml</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>catkin_ws/devel/**,catkin_ws/src/ws-versions.yaml</artifacts>
+      <latestOnly>true</latestOnly>
+      <allowEmptyArchive>true</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.Mailer plugin="mailer@1.5">
+      <recipients>strands-wp8@cs.bham.ac.uk</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.25">
+      <targets>
+        <hudson.plugins.im.GroupChatIMMessageTarget plugin="instant-messaging@1.25">
+          <name>strands-software-mgt@conference.jabber.de</name>
+          <notificationOnly>false</notificationOnly>
+        </hudson.plugins.im.GroupChatIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>true</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.25"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>
