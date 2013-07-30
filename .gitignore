@@ -1,3 +1,5 @@
+*~
+*.scxml
 .bash_history
 .bashrc
 .cache/
