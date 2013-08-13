@@ -8,54 +8,14 @@
       <projectUrl>https://github.com/strands-project/strands_ci/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@1.4.0">
-    <configVersion>2</configVersion>
-    <userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <name>origin</name>
-        <refspec>master</refspec>
-        <url>https://github.com/strands-project/strands_ci.git</url>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>**</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
-    <disableSubmodules>false</disableSubmodules>
-    <recursiveSubmodules>false</recursiveSubmodules>
-    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <authorOrCommitter>false</authorOrCommitter>
-    <clean>false</clean>
-    <wipeOutWorkspace>false</wipeOutWorkspace>
-    <pruneBranches>false</pruneBranches>
-    <remotePoll>false</remotePoll>
-    <ignoreNotifyCommit>false</ignoreNotifyCommit>
-    <useShallowClone>false</useShallowClone>
-    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
-    <gitTool>Default</gitTool>
-    <browser class="hudson.plugins.git.browser.GithubWeb">
-      <url>https://github.com/strands-project/strands_ci/</url>
-    </browser>
-    <submoduleCfg class="list"/>
-    <relativeTargetDir></relativeTargetDir>
-    <reference></reference>
-    <excludedRegions></excludedRegions>
-    <excludedUsers></excludedUsers>
-    <gitConfigName></gitConfigName>
-    <gitConfigEmail></gitConfigEmail>
-    <skipTag>false</skipTag>
-    <includedRegions></includedRegions>
-    <scmName></scmName>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <hudson.triggers.TimerTrigger>
-      <spec>H 2 * * *
-</spec>
+      <spec>H 2 * * *</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
@@ -88,12 +48,12 @@ wstool info --yaml &gt; ws-versions.yaml</command>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>catkin_ws/src/ws-versions.yaml</artifacts>
+      <artifacts>catkin_ws/devel/**,catkin_ws/src/ws-versions.yaml</artifacts>
       <latestOnly>true</latestOnly>
       <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.Mailer plugin="mailer@1.5">
-      <recipients></recipients>
+      <recipients>strands-wp8@cs.bham.ac.uk</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
@@ -148,15 +108,5 @@ wstool info --yaml &gt; ws-versions.yaml</command>
       </delegate>
     </jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin>
   </publishers>
-  <buildWrappers>
-    <org.jenkinsci.plugins.xvfb.XvfbBuildWrapper plugin="xvfb@1.0.8">
-      <installationName>Xvfb</installationName>
-      <screen>1024x758x24</screen>
-      <debug>true</debug>
-      <timeout>0</timeout>
-      <displayNameOffset>100</displayNameOffset>
-      <additionalOptions></additionalOptions>
-      <shutdownWithBuild>true</shutdownWithBuild>
-    </org.jenkinsci.plugins.xvfb.XvfbBuildWrapper>
-  </buildWrappers>
+  <buildWrappers/>
 </project>
