@@ -1,0 +1,14 @@
+<launch>
+  <!-- Patrol -->
+
+  <include file="$(find strands_morse)/uol/launch/uol_mht_nav2d.launch"/> 
+  <!--<include file="$(find strands_datacentre)/launch/datacentre.launch"/>     -->
+  <node name="odometry_mileage" pkg="odometry_mileage" type="odometry_mileage"/>
+
+  <!-- Long Term patroller -->
+  <include file="$(find waypoint_patroller)/launch/long_term_patroller.launch">
+      <arg name="waypoints" value="fsmpatrol" />
+      <arg name="randomized" value="true" />
+  </include>
+</launch>
+
