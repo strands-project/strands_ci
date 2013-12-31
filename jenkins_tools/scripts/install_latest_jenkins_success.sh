@@ -1,4 +1,4 @@
-wstool_conf_url="http://strands.hanheide.de/ws-versions.yaml"
+wstool_conf_url="http://lcas.lincoln.ac.uk/strands/jenkins/ws-versions.yaml"
 
 if [ "$1" ]; then
 	catkinws="$1"
@@ -23,10 +23,10 @@ fi
 for d in *; do (if [ -d "$d/.git" ]; then echo $d; cd $d; git stash; fi); done
  
 # get the latest successful rosinstall files from jenkins ()
-wstool merge -y "$wstool_conf_url"
+wstool merge -r -y "$wstool_conf_url"
 
 # get everything from github
-wstool up
+wstool up --delete-changed-uris
  
 # run catkin_make
 catkin_make -C .. clean
