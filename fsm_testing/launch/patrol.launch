@@ -2,7 +2,7 @@
   <!-- Patrol -->
 
   <include file="$(find strands_morse)/uol/launch/uol_mht_nav2d.launch"/> 
-  <!--<include file="$(find strands_datacentre)/launch/datacentre.launch"/>     -->
+  <!--<include file="$(find ros_datacentre)/launch/datacentre.launch"/>     -->
   <node name="odometry_mileage" pkg="odometry_mileage" type="odometry_mileage"/>
 
   <!-- Long Term patroller -->
